@@ -3,9 +3,9 @@
  *
  * Polish language file.
  *
- * Author:
+ * Author: 
  */
 
- theUILang.diskNotification = "Uwaga! Dysk jest pełny. rTorrent może nie działać poprawnie i żadne dane nie zostaną pobrane, dopóki nie usuniesz czegoś z dysku.";
+ theUILang.diskNotification = "Warning! The disk is full. rTorrent may not run correctly, and no data will be downloaded until you free some disk space.";
 
 thePlugins.get("diskspace").langLoaded();

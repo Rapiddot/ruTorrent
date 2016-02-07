@@ -457,6 +457,31 @@ var theConverter =
 		}
 		return(this.round(bt, p) + " " + a[ndx]);
 	},
+	bytessi: function(bt, p)
+        {
+                p = (p == null) ? 1 : p;
+                var a = new Array(theUILang.bytes, theUILang.KB, theUILang.MB, theUILang.GB, theUILang.TB, theUILang.PB);
+                var ndx = 0;
+                if(bt == 0)
+                        ndx = 1;
+                else
+                {
+                        if(bt < 1000)
+                        {
+                                bt /= 1000;
+                                ndx = 1;
+                        }
+                        else
+                        {
+                                while(bt >= 1000)
+                                {
+                                        bt /= 1000;
+                                        ndx++;
+                                }
+                        }
+                }
+                return(this.round(bt, p) + " " + a[ndx]);
+        },
 	speed: function(bt)
 	{
 		return((bt>0) ? this.bytes(bt)+ "/" + theUILang.s : "");

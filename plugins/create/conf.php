@@ -1,7 +1,7 @@
 <?php
 // configuration parameters
 
-$useExternal = false;		// Valid choices:
+$useExternal = "mktorrent";		// Valid choices:
 				// false - use internal realization (may be too slow for large files)
 				// "transmissioncli" - use program transmissioncli (see http://www.transmissionbt.com/)
 				// "transmissioncreate" - use program transmissioncreate (see http://www.transmissionbt.com/)
