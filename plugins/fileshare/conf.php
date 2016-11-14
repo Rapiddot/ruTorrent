@@ -7,7 +7,7 @@ $limits['links'] = 0; 	//maximum sharing links per user
 
 // path on domain where a symlink to share.php can be found
 // example: http://mydomain.com/share.php
-$downloadpath = 'http://varuserhostname/share.php'; 
+$downloadpath = 'varuserhostname'; 
 
 
 ?>
