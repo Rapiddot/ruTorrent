@@ -3,6 +3,36 @@ svn:wc:ra_dav:version-url
 V 49
 /svn/filemanager/!svn/ver/37/trunk/fileshare/lang
 END
+cs.js
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/filemanager/!svn/ver/37/trunk/fileshare/lang/cs.js
+END
+fr.js
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/filemanager/!svn/ver/37/trunk/fileshare/lang/fr.js
+END
+es.js
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/filemanager/!svn/ver/37/trunk/fileshare/lang/es.js
+END
+nl.js
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/filemanager/!svn/ver/37/trunk/fileshare/lang/nl.js
+END
+zh-tw.js
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/filemanager/!svn/ver/37/trunk/fileshare/lang/zh-tw.js
+END
 pl.js
 K 25
 svn:wc:ra_dav:version-url
@@ -98,34 +128,4 @@ K 25
 svn:wc:ra_dav:version-url
 V 55
 /svn/filemanager/!svn/ver/37/trunk/fileshare/lang/en.js
-END
-cs.js
-K 25
-svn:wc:ra_dav:version-url
-V 55
-/svn/filemanager/!svn/ver/37/trunk/fileshare/lang/cs.js
-END
-fr.js
-K 25
-svn:wc:ra_dav:version-url
-V 55
-/svn/filemanager/!svn/ver/37/trunk/fileshare/lang/fr.js
-END
-es.js
-K 25
-svn:wc:ra_dav:version-url
-V 55
-/svn/filemanager/!svn/ver/37/trunk/fileshare/lang/es.js
-END
-nl.js
-K 25
-svn:wc:ra_dav:version-url
-V 55
-/svn/filemanager/!svn/ver/37/trunk/fileshare/lang/nl.js
-END
-zh-tw.js
-K 25
-svn:wc:ra_dav:version-url
-V 58
-/svn/filemanager/!svn/ver/37/trunk/fileshare/lang/zh-tw.js
 END

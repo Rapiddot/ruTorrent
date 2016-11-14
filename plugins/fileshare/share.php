@@ -3,8 +3,6 @@ if(!isset($_GET['uh'])) {die('Invalid link');}
 $_SERVER['REMOTE_USER'] = base64_decode($_GET['uh']);
 require_once( dirname(__FILE__)."/../../php/util.php" );
 
-if(getConfFile('config.php') === FALSE) {die('No such file');}
-
 require_once( dirname(__FILE__)."/../filemanager/flm.class.php" );
 include( dirname(__FILE__).'/share.class.php');
 
