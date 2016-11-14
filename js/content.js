@@ -154,21 +154,24 @@ function makeContent()
 	input.onpaste = function() { setTimeout( input.onupdate, 10 ) };
 	var makeAddRequest = function(frm)
 	{
-		var s = theURLs.AddTorrentURL+"?";
+		var s = theURLs.AddTorrentURL;
+		var req = []
 		if($("#torrents_start_stopped").prop("checked"))
-			s += 'torrents_start_stopped=1&';
+			req.push('torrents_start_stopped=1');
 		if($("#fast_resume").prop("checked"))
-			s += 'fast_resume=1&';
+			req.push('fast_resume=1');
 		if($("#not_add_path").prop("checked"))
-			s += 'not_add_path=1&';
+			req.push('not_add_path=1');
 		if($("#randomize_hash").prop("checked"))
-			s += 'randomize_hash=1&';
+			req.push('randomize_hash=1');
 		var dir = $.trim($("#dir_edit").val());
 		if(dir.length)
-			s += ('dir_edit='+encodeURIComponent(dir)+'&');
+			req.push('dir_edit='+encodeURIComponent(dir));
 		var lbl = $.trim($("#tadd_label").val());
 		if(lbl.length)
-			s += ('label='+encodeURIComponent(lbl));
+			req.push('label='+encodeURIComponent(lbl));
+		if(req.length)
+			s+=('?'+req.join('&'));
 		frm.action = s;
 		return(true);
 	}
@@ -430,11 +433,11 @@ function makeContent()
 					"<legend>"+theUILang.Bandwidth_Limiting+"</legend>"+
 					"<table>"+
 						"<tr>"+
-							"<td>"+theUILang.Global_max_upl+" ("+theUILang.kbs+"): [0: "+theUILang.unlimited+"]</td>"+
+							"<td>"+theUILang.Global_max_upl+" ("+theUILang.KB + "/" + theUILang.s+"): [0: "+theUILang.unlimited+"]</td>"+
 							"<td class=\"alr\"><input type=\"text\" id=\"upload_rate\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
 						"</tr>"+
 						"<tr>"+
-							"<td>"+theUILang.Glob_max_downl+" ("+theUILang.kbs+"): [0: "+theUILang.unlimited+"]</td>"+
+							"<td>"+theUILang.Glob_max_downl+" ("+theUILang.KB + "/" + theUILang.s+"): [0: "+theUILang.unlimited+"]</td>"+
 							"<td class=\"alr\"><input type=\"text\" id=\"download_rate\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
 						"</tr>"+
 					"</table>"+
@@ -890,7 +893,7 @@ function correctContent()
 			"get_preload_min_size"	:	{ name: "pieces.preload.min_size", prm: 0 },
 			"get_preload_required_rate"	:	{ name: "pieces.preload.min_rate", prm: 0 },
 			"get_preload_type"	:	{ name: "pieces.preload.type", prm: 0 },
-			"get_proxy_address"	:	{ name: "network.http.proxy_address", prm: 0 },
+			"get_proxy_address"	:	{ name: "network.proxy_address", prm: 0 },
 			"get_receive_buffer_size"	:	{ name: "network.receive_buffer.size", prm: 0 },
 			"get_safe_sync"		:	{ name: "pieces.sync.always_safe", prm: 0 },
 			"get_scgi_dont_route"	:	{ name: "network.scgi.dont_route", prm: 0 },
@@ -916,7 +919,7 @@ function correctContent()
 			"get_xmlrpc_size_limit"	:	{ name: "network.xmlrpc.size_limit", prm: 0 },
 			"http_cacert"		:	{ name: "network.http.cacert", prm: 0 },
 			"http_capath"		:	{ name: "network.http.capath", prm: 0 },
-			"http_proxy"		:	{ name: "network.proxy_address", prm: 0 },
+			"http_proxy"		:	{ name: "network.http.proxy_address", prm: 0 },
 			"load_raw"		:	{ name: "load.raw", prm: 1 },
 			"load_raw_start"	:	{ name: "load.raw_start", prm: 1 },
 			"load_raw_verbose"	:	{ name: "load.raw_verbose", prm: 1 },
@@ -972,7 +975,7 @@ function correctContent()
 			"set_preload_min_size"	:	{ name: "pieces.preload.min_size.set", prm: 1 },
 			"set_preload_required_rate"	:	{ name: "pieces.preload.min_rate.set", prm: 1 },
 			"set_preload_type"	:	{ name: "pieces.preload.type.set", prm: 1 },
-			"set_proxy_address"	:	{ name: "network.http.proxy_address.set", prm: 1 },
+			"set_proxy_address"	:	{ name: "network.proxy_address.set", prm: 1 },
 			"set_receive_buffer_size"	:	{ name: "network.receive_buffer.size.set", prm: 1 },
 			"set_safe_sync"		:	{ name: "pieces.sync.always_safe.set", prm: 1 },
 			"set_scgi_dont_route"	:	{ name: "network.scgi.dont_route.set", prm: 1 },

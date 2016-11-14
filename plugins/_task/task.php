@@ -118,13 +118,41 @@ class rTask
 		$subject = preg_replace('/\x1b(\[|\(|\))[;?0-9]*[0-9A-Za-z]/', "",$subject);
 		$subject = preg_replace('/[\x03|\x1a]/', "", $subject);  
 		return($subject);
-	}		
+	}
+
+	static protected function tail($filename, $lines = 128, $buffer = 16384)
+	{
+		$sz = filesize($filename);
+		if( $sz < 0xFFFF )
+			return( file($filename) );
+		else
+		{
+			 $f = fopen($filename, "rb");
+			fseek($f, -1, SEEK_END);
+			if(fread($f, 1) != "\n") $lines -= 1;
+
+			$output = '';
+			$chunk = '';
+
+			while(ftell($f) > 0 && ($lines >= 0))
+    			{
+				$seek = min(ftell($f), $buffer);
+				fseek($f, -$seek, SEEK_CUR);
+			        $output = ($chunk = fread($f, $seek)).$output;
+			        fseek($f, -mb_strlen($chunk, '8bit'), SEEK_CUR);
+			        $lines -= substr_count($chunk, "\n");
+    			}
+			fclose($f);
+
+			return( explode("\n", $output) );
+		}	
+	}
 
 	static protected function processLog( $dir, $logName, &$ret, $stripConsole, $removeASCII )
 	{
 		if(is_file($dir.'/'.$logName) && is_readable($dir.'/'.$logName))
 		{
-			$lines = file($dir.'/'.$logName);
+			$lines = self::tail($dir.'/'.$logName);
 			foreach( $lines as $line )
 			{
 //				if($stripConsole)
@@ -237,6 +265,8 @@ class rTask
 
 class rTaskManager
 {
+	const MAX_TASK_COUNT = 100;
+
 	static public function obtain()
 	{
 		$tasks = array();
@@ -256,9 +286,15 @@ class rTaskManager
 			} 
 			closedir($handle);		
 	        }
+	        uasort($tasks,array('self', 'sortByStarted'));
 	        return($tasks);
 	}
 	
+	static public function sortByStarted($a,$b)
+	{
+		return( $a['start'] > $b['start'] ? -1 : ($a['start'] < $b['start'] ? 1 : 0) );
+	}
+
 	static public function isPIDExists( $pid )
 	{
 		return( function_exists( 'posix_getpgid' ) ? (posix_getpgid($pid)!==false) : file_exists( '/proc/'.$pid ) );
@@ -266,11 +302,16 @@ class rTaskManager
 
 	static public function cleanup()
 	{
+		$counter = 0;
 		$tasks = self::obtain();
 		foreach( $tasks as $id=>$task )
 		{
-			if( ($task["status"]<0) && (!$task["pid"] || !self::isPIDExists($task["pid"])) )
+			$finished_with_error = ($task["status"]>0);
+			$in_progress = !$finished_with_error && $task["pid"] && self::isPIDExists($task["pid"]);
+			if( !$finished_with_error && !$in_progress && ($counter>=self::MAX_TASK_COUNT) )
 				rTask::clean(rTask::formatPath($id));
+			else
+				$counter++;
 		}
 	}
 
